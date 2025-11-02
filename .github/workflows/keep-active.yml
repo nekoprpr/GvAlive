@@ -19,7 +19,7 @@ jobs:
           touch .keep-active.txt
           git config --global user.email "bot@example.com"
           git config --global user.name "Active Bot"
-          git add .github/keep-active.txt
+          git add .keep-active.txt
           git commit -m "Auto-commit to keep repository active" || echo "No changes to commit"
 
       - name: Push commit
