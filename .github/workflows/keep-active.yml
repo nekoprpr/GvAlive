@@ -1,0 +1,29 @@
+name: Keep Repository Active
+on:
+  schedule:
+    - cron: '0 0 */20 * *'  # 每20天的0点运行一次（UTC时间）
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  keep-active:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false  # 禁用默认凭据，避免权限问题
+
+      - name: Create dummy commit
+        run: |
+          # 创建或更新一个空文件（避免修改实际代码）
+          touch .github/keep-active.txt
+          git config --global user.email "bot@example.com"
+          git config --global user.name "Active Bot"
+          git add .github/keep-active.txt
+          git commit -m "Auto-commit to keep repository active" || echo "No changes to commit"
+
+      - name: Push commit
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # 自动生成的令牌，需开启推送权限
+          branch: ${{ github.ref }}  # 推送到当前分支
