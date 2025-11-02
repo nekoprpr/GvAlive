@@ -21,7 +21,10 @@ jobs:
           git config --global user.name "Active Bot"
           git add .keep-active.txt
           git commit -m "Auto-commit to keep repository active" || echo "No changes to commit"
-
+          
+          rm -f .keep-active.txt  # -f确保文件不存在时不报错
+          git add .keep-active.txt  # 跟踪删除操作
+          git commit -m "Auto-delete dummy file after activation" || echo "No file to delete"
       - name: Push commit
         uses: ad-m/github-push-action@master
         with:
