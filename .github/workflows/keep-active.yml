@@ -16,7 +16,7 @@ jobs:
       - name: Create dummy commit
         run: |
           # 创建或更新一个空文件（避免修改实际代码）
-          touch .github/keep-active.txt
+          touch .keep-active.txt
           git config --global user.email "bot@example.com"
           git config --global user.name "Active Bot"
           git add .github/keep-active.txt
